@@ -1,0 +1,129 @@
+/* ═══════════════════════════════════════════════
+   themes.css — CSS custom property palettes
+   Switch by setting data-theme on <html>
+   ═══════════════════════════════════════════════ */
+
+/* ── Paper / Notebook Mode (default) ──────────── */
+:root,
+[data-theme="paper"] {
+  --bg:           #faf7f0;          /* warm parchment */
+  --bg-surface:   #f3ede0;          /* slightly darker cream */
+  --bg-card:      #ede5d4;          /* aged paper */
+  --fg:           #1c1008;          /* dark brown-black ink */
+  --fg-dim:       #7a6a52;          /* faded ink / pencil */
+  --accent:       #b03020;          /* red pen ink */
+  --accent-dim:   #7a1a10;
+  --accent-glow:  rgba(176, 48, 32, 0.08);
+  --border:       #c8b89a;          /* paper edge */
+  --scanline:     transparent;
+  --selection-bg: #f5dfa0;          /* yellow highlighter */
+  --scrollbar:    #c8b89a;
+  --cursor-color: #b03020;
+  --dot-color:    transparent;      /* ruled lines replace dots */
+  --nav-bg:       rgba(250, 247, 240, 0.97);
+  --cmd-bg:       rgba(243, 237, 224, 0.99);
+  --shadow:       rgba(80, 50, 20, 0.08);
+  --theme-name:   "paper";
+  /* notebook line colours */
+  --rule-color:   rgba(140, 170, 210, 0.45);  /* college-ruled blue */
+  --margin-color: rgba(210,  80,  70, 0.38);  /* left margin red */
+  --rule-height:  28px;                        /* line spacing */
+
+  /* ── Dither settings (paper mode: hand-drawn ink stipple) ── */
+  --dither-bg:         transparent;
+  --dither-fg:         var(--fg);       /* dark ink */
+  --dither-invert:     1;               /* 1 = ink fills shadows & dark hair */
+  --dither-threshold:  128;             /* 0-255 midtone cutoff */
+  --dither-contrast:   1.0;             /* contrast multiplier */
+  --dither-brightness: 0;               /* brightness offset (-100 to 100) */
+}
+
+/* ── Green Phosphor ───────────────────────────── */
+[data-theme="green"] {
+  --bg:           #0a0f0a;
+  --bg-surface:   #0f170f;
+  --bg-card:      #111d11;
+  --fg:           #c8ffc8;
+  --fg-dim:       #4d7a4d;
+  --accent:       #39ff14;
+  --accent-dim:   #1a7005;
+  --accent-glow:  rgba(57, 255, 20, 0.18);
+  --border:       #1e3a1e;
+  --scanline:     rgba(0, 255, 0, 0.028);
+  --selection-bg: #1a4a1a;
+  --scrollbar:    #1e3a1e;
+  --cursor-color: #39ff14;
+  --dot-color:    rgba(57, 255, 20, 0.09);
+  --nav-bg:       rgba(10, 15, 10, 0.92);
+  --cmd-bg:       rgba(8, 12, 8, 0.97);
+  --shadow:       rgba(57, 255, 20, 0.08);
+  --theme-name:   "green";
+
+  /* ── Dither settings (green CRT: phosphor glow on dark glass) ── */
+  --dither-bg:         var(--bg);       /* dark CRT glass */
+  --dither-fg:         var(--accent);   /* neon green phosphor */
+  --dither-invert:     0;               /* 0 = phosphor glows on highlights & skin */
+  --dither-threshold:  128;             /* 0-255 midtone cutoff */
+  --dither-contrast:   1.0;             /* contrast multiplier */
+  --dither-brightness: 0;               /* brightness offset (-100 to 100) */
+}
+
+/* ── Amber CRT ────────────────────────────────── */
+[data-theme="amber"] {
+  --bg:           #0f0a00;
+  --bg-surface:   #1a1100;
+  --bg-card:      #201600;
+  --fg:           #ffd580;
+  --fg-dim:       #7a6020;
+  --accent:       #ff9900;
+  --accent-dim:   #804500;
+  --accent-glow:  rgba(255, 153, 0, 0.18);
+  --border:       #3a2800;
+  --scanline:     rgba(255, 153, 0, 0.028);
+  --selection-bg: #4a2800;
+  --scrollbar:    #3a2800;
+  --cursor-color: #ff9900;
+  --dot-color:    rgba(255, 153, 0, 0.09);
+  --nav-bg:       rgba(15, 10, 0, 0.92);
+  --cmd-bg:       rgba(10, 7, 0, 0.97);
+  --shadow:       rgba(255, 153, 0, 0.08);
+  --theme-name:   "amber";
+
+  /* ── Dither settings (amber CRT: warm amber phosphor on dark glass) ── */
+  --dither-bg:         var(--bg);       /* dark CRT glass */
+  --dither-fg:         var(--accent);   /* warm amber phosphor */
+  --dither-invert:     0;               /* 0 = phosphor glows on highlights & skin */
+  --dither-threshold:  128;             /* 0-255 midtone cutoff */
+  --dither-contrast:   1.0;             /* contrast multiplier */
+  --dither-brightness: 0;               /* brightness offset (-100 to 100) */
+}
+
+/* ── Synthwave ────────────────────────────────── */
+[data-theme="synthwave"] {
+  --bg:           #0d0017;
+  --bg-surface:   #130022;
+  --bg-card:      #18002d;
+  --fg:           #e0d7f7;
+  --fg-dim:       #6050a0;
+  --accent:       #bf00ff;
+  --accent-dim:   #55007a;
+  --accent-glow:  rgba(191, 0, 255, 0.18);
+  --border:       #2d0060;
+  --scanline:     rgba(191, 0, 255, 0.028);
+  --selection-bg: #380070;
+  --scrollbar:    #2d0060;
+  --cursor-color: #bf00ff;
+  --dot-color:    rgba(191, 0, 255, 0.09);
+  --nav-bg:       rgba(13, 0, 23, 0.92);
+  --cmd-bg:       rgba(8, 0, 15, 0.97);
+  --shadow:       rgba(191, 0, 255, 0.08);
+  --theme-name:   "synthwave";
+
+  /* ── Dither settings (synthwave: neon purple glow on dark glass) ── */
+  --dither-bg:         var(--bg);       /* dark violet */
+  --dither-fg:         var(--accent);   /* neon purple */
+  --dither-invert:     0;               /* 0 = neon glows on highlights & skin */
+  --dither-threshold:  128;             /* 0-255 midtone cutoff */
+  --dither-contrast:   1.0;             /* contrast multiplier */
+  --dither-brightness: 0;               /* brightness offset (-100 to 100) */
+}
