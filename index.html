@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Prakhar Sharma — Linux engineer, ML intern candidate, and gamer. Portfolio site." />
+  <meta name="author" content="Prakhar Sharma" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Prakhar Sharma — Portfolio" />
+  <meta property="og:description" content="B.Tech CSE AIML student · Linux · C/C++ · Python · Rust · Deep Learning" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://satyanveshi.xyz" />
+
+  <title>Prakhar Sharma</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+
+  <!-- Styles (order matters) -->
+  <link rel="stylesheet" href="assets/css/themes.css" />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+</head>
+<body>
+
+  <!-- CRT scanlines -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ═══════ NEOVIM TABLINE ═══════ -->
+  <nav id="nav" class="nvim-tabline" role="navigation" aria-label="Main navigation">
+    <div class="nav-links">
+      <a href="#about"    class="nav-link active" draggable="true" title="Drag to reorder tab"><span class="dim">1</span> about.md</a>
+      <a href="#skills"   class="nav-link" draggable="true" title="Drag to reorder tab"><span class="dim">2</span> skills.sh</a>
+      <a href="#projects" class="nav-link" draggable="true" title="Drag to reorder tab"><span class="dim">3</span> projects.rs</a>
+      <a href="#hobbies"  class="nav-link" draggable="true" title="Drag to reorder tab"><span class="dim">4</span> hobbies.txt</a>
+      <a href="#contact"  class="nav-link" draggable="true" title="Drag to reorder tab"><span class="dim">5</span> contact.cfg</a>
+    </div>
+    <div class="nav-right-spacer"></div>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 1 — HERO / ABOUT
+         ═══════════════════════════════════════════ -->
+    <section id="about" class="section" aria-labelledby="about-heading">
+
+      <div class="hero-grid">
+
+        <!-- Dithered portrait canvas -->
+        <div class="hero-portrait">
+          <canvas id="dither-canvas"
+                  width="260" height="320"
+                  role="img"
+                  aria-label="Dithered portrait">
+          </canvas>
+        </div>
+
+        <!-- Text column -->
+        <div class="hero-text">
+          <p class="hero-label" aria-hidden="true">$ whoami</p>
+
+          <h1 class="hero-name" id="about-heading">
+            PRAKHAR<br />SHARMA
+          </h1>
+
+          <p class="hero-tagline" aria-live="polite">
+            <span id="typewriter"></span><span class="cursor" aria-hidden="true">▋</span>
+          </p>
+
+          <div class="hero-meta" aria-label="Quick facts">
+            <p>
+              <span class="dim">role</span>
+              <span class="accent">Machine Learning Intern (seeking)</span>
+            </p>
+            <p>
+              <span class="dim">stack</span>
+              <span>Python · C · Rust · C++ · JavaScript</span>
+            </p>
+            <p>
+              <span class="dim">os</span>
+              <span class="accent">Linux (arch btw)</span>
+            </p>
+            <p>
+              <span class="dim">edu</span>
+              <span>B.Tech CSE AIML · GGSIPU · '29</span>
+            </p>
+            <p>
+              <span class="dim">location</span>
+              <span>New Delhi, India</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 2 — SKILLS
+         ═══════════════════════════════════════════ -->
+    <section id="skills" class="section" aria-labelledby="skills-heading">
+
+      <h2 class="section-title" id="skills-heading">$ cat ~/.skills.sh</h2>
+
+      <div class="skills-grid" role="list" aria-label="Skill proficiency bars">
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">Linux / Shell</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="60"></div>
+          </div>
+          <span class="skill-pct" aria-label="60 percent">60%</span>
+        </div>
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">Python</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="80"></div>
+          </div>
+          <span class="skill-pct" aria-label="80 percent">80%</span>
+        </div>
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">C / C++</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="65"></div>
+          </div>
+          <span class="skill-pct" aria-label="65 percent">65%</span>
+        </div>
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">Deep Learning</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="75"></div>
+          </div>
+          <span class="skill-pct" aria-label="75 percent">75%</span>
+        </div>
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">JavaScript</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="75"></div>
+          </div>
+          <span class="skill-pct" aria-label="75 percent">75%</span>
+        </div>
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">SQL</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="90"></div>
+          </div>
+          <span class="skill-pct" aria-label="90 percent">90%</span>
+        </div>
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">Rust</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="45"></div>
+          </div>
+          <span class="skill-pct" aria-label="45 percent">45%</span>
+        </div>
+
+        <div class="skill-row" role="listitem">
+          <span class="skill-name">Love for Computers</span>
+          <div class="skill-bar-wrap" aria-hidden="true">
+            <div class="skill-bar" data-pct="100"></div>
+          </div>
+          <span class="skill-pct" aria-label="100 percent">100%</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 3 — PROJECTS
+         ═══════════════════════════════════════════ -->
+    <section id="projects" class="section" aria-labelledby="projects-heading">
+
+      <h2 class="section-title" id="projects-heading">$ ls ~/projects/</h2>
+
+      <div class="projects-grid">
+
+        <!-- Project card: Data Structures -->
+        <article class="project-card">
+          <div class="project-card-header">
+            <div class="project-card-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="project-card-title">Trie Autocomplete</span>
+            <span class="wip-badge">WIP</span>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-desc">
+              really enjoyed looking at the datastructure,
+              so i wanted a deeper dive, using the trie datastructure
+              to implement an autocomplete
+            </p>
+            <div class="project-card-tags">
+              <span class="tag">python</span>
+              <span class="tag">trie</span>
+              <span class="tag">datastructure</span>
+              <span class="tag">leetcode</span>
+            </div>
+            <div class="project-card-links">
+              <a href="https://github.com/Prakhar1808/trie-autocomplete" target="_blank" rel="noopener">
+                ↗ github
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project card: Systems / Linux -->
+        <article class="project-card">
+          <div class="project-card-header">
+            <div class="project-card-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="project-card-title">omen-ctrl</span>
+            <span class="wip-badge">WIP</span>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-desc">
+              make fan control for omen16 accessible for all!
+              Dynamic fan control and gaming optimisations for
+              <strong>HP Omen laptops on Linux</strong>.
+            </p>
+            <div class="project-card-tags">
+              <span class="tag">c/python</span>
+              <span class="tag">linux</span>
+              <span class="tag">daemon</span>
+              <span class="tag">systems</span>
+            </div>
+            <div class="project-card-links">
+              <a href="https://github.com/Prakhar1808" target="_blank" rel="noopener">
+                ↗ github
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project card: ML / Deep Learning -->
+        <article class="project-card">
+          <div class="project-card-header">
+            <div class="project-card-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="project-card-title">GardenAI</span>
+            <span class="wip-badge">WIP</span>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-desc">
+              manage your garden with gardenAi,
+              started in first year of college to practice image model classifiers
+              multiple models, plantvillage dataset, used to be group project, now just me
+              i hope i revive this soon
+            </p>
+            <div class="project-card-tags">
+              <span class="tag">python</span>
+              <span class="tag">numpy</span>
+              <span class="tag">deep learning</span>
+              <span class="tag">ml</span>
+            </div>
+            <div class="project-card-links">
+              <a href="https://github.com/Prakhar1808" target="_blank" rel="noopener">
+                ↗ github
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project card: Hardware -->
+        <article class="project-card">
+          <div class="project-card-header">
+            <div class="project-card-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="project-card-title">change-the-slide-for-me</span>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-desc">
+              thought of this while my college orientation
+              you need a guy just to change the slides? not on my watch
+              working version is available and was used during <strong>the COMMIT THEORY</strong> event
+            </p>
+            <div class="project-card-tags">
+              <span class="tag">esp32</span>
+              <span class="tag">bluetoohth HID</span>
+              <span class="tag">C++</span>
+              <span class="tag">hardware</span>
+            </div>
+            <div class="project-card-links">
+              <a href="https://github.com/Prakhar1808/change-the-slide-for-me" target="_blank" rel="noopener">
+                ↗ github
+              </a>
+            </div>
+          </div>
+        </article>
+
+         <!-- Project card: CLI -->
+        <article class="project-card">
+          <div class="project-card-header">
+            <div class="project-card-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="project-card-title">Expense Tracker CLI</span>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-desc">
+              always loved using CLIs, wanted to learn how they work
+              so made this basic project, heavily commented so a learning experience
+              for all, made in python with argparse, easy to read
+            </p>
+            <div class="project-card-tags">
+              <span class="tag">python</span>
+              <span class="tag">argparse</span>
+              <span class="tag">CLI</span>
+              <span class="tag">csv</span>
+              <span class="tag">easy to read</span>
+            </div>
+            <div class="project-card-links">
+              <a href="https://github.com/Prakhar1808/Expense-Tracker-CLI" target="_blank" rel="noopener">
+                ↗ github
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project card: OSM / Open Source -->
+        <article class="project-card">
+          <div class="project-card-header">
+            <div class="project-card-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="project-card-title">osm-contributions</span>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-desc">
+              Active OpenStreetMap contributor — mapping roads, landmarks,
+              and points of interest across the globe not just New Delhi. Contributing to
+              open geodata for navigation and research.
+            </p>
+            <div class="project-card-tags">
+              <span class="tag">openstreetmap</span>
+              <span class="tag">open source</span>
+              <span class="tag">open data</span>
+            </div>
+            <div class="project-card-links">
+              <a href="https://www.openstreetmap.org/user/PrakharSharma" target="_blank" rel="noopener">
+                ↗ osm profile
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Placeholder "coming soon" card -->
+        <article class="project-card">
+          <div class="project-card-header">
+            <div class="project-card-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="project-card-title">???</span>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-desc" style="font-style: italic;">
+              omg i have so many ideas, something is brewing.
+              Check back soon — or watch the GitHub for activity.
+            </p>
+            <div class="project-card-tags">
+              <span class="tag">coming soon</span>
+            </div>
+            <div class="project-card-links">
+              <a href="https://github.com/Prakhar1808" target="_blank" rel="noopener">
+                ↗ github.com/Prakhar1808
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 4 — HOBBIES
+         ═══════════════════════════════════════════ -->
+    <section id="hobbies" class="section" aria-labelledby="hobbies-heading">
+
+      <h2 class="section-title" id="hobbies-heading">$ cat /etc/hobbies.txt</h2>
+
+      <div class="hobbies-grid">
+
+        <div class="hobby-panel">
+          <p class="hobby-title">Video Games</p>
+          <p class="hobby-body">
+            <strong>Open-world, story-driven games</strong> — enjoy
+            dissecting game mechanics, learning how engines work, and
+            occasionally reverse-engineering save formats for fun.
+            Currently playing whatever runs well on Linux. (witcher 3)
+          </p>
+        </div>
+
+        <div class="hobby-panel">
+          <p class="hobby-title">Linux &amp; Open Source</p>
+          <p class="hobby-body">
+            Daily driving Arch Linux. Interested in <strong>computer hardware &amp internals,
+            systems programming</strong>, love saving memory even though i have enough,
+            favourite past-time calling out bloated softwares and contributing back to the
+            open-source ecosystem.
+            Love building small CLI tools that scratch an itch.
+          </p>
+        </div>
+
+        <div class="hobby-panel">
+          <p class="hobby-title">Computer Hardware</p>
+          <p class="hobby-body">
+            Fascinated by <strong>how hardware and software actually
+            meet</strong> — memory models, CPU pipelines, cache behaviour.
+            Enjoys tinkering with hardware, understanding peripherals,
+            and reading documentation.
+          </p>
+        </div>
+
+        <div class="hobby-panel">
+          <p class="hobby-title">Badminton</p>
+          <p class="hobby-body">
+            have to touch grass some days of my life.
+            Good for the posture, bad for the ego when someone better
+            shows up. <strong>Balance is important</strong> — even though i don't
+            play much these days, maybe i am a hypocrite too
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 5 — CONTACT
+         ═══════════════════════════════════════════ -->
+    <section id="contact" class="section" aria-labelledby="contact-heading">
+
+      <h2 class="section-title" id="contact-heading">$ cat ~/.contacts</h2>
+
+      <div class="contact-block">
+
+        <p class="contact-intro">
+          I'm actively looking for a <span class="accent">Machine Learning Internship</span>.
+          If you're working on something interesting in ML, systems, or open source —
+          reach out. Always happy to talk.
+        </p>
+
+        <div class="contact-links" role="list">
+
+          <div class="contact-row" role="listitem">
+            <span class="contact-label">github</span>
+            <a href="https://github.com/Prakhar1808"
+               target="_blank" rel="noopener"
+               aria-label="GitHub profile: Prakhar1808">
+              github.com/Prakhar1808
+            </a>
+          </div>
+
+          <div class="contact-row" role="listitem">
+            <span class="contact-label">leetcode</span>
+            <a href="https://leetcode.com/u/Prakhar1808wastaken/"
+               target="_blank" rel="noopener"
+               aria-label="LeetCode profile">
+              leetcode.com/u/Prakhar1808wastaken
+            </a>
+          </div>
+
+          <div class="contact-row" role="listitem">
+            <span class="contact-label">openstreetmap</span>
+            <a href="https://www.openstreetmap.org/user/PrakharSharma"
+               target="_blank" rel="noopener"
+               aria-label="OpenStreetMap profile: PrakharSharma">
+              osm.org/user/PrakharSharma
+            </a>
+          </div>
+
+          <div class="contact-row" role="listitem">
+            <span class="contact-label">email</span>
+            <a href="mailto:prakharsharma.wrk@gmail.com"
+               aria-label="Email Prakhar Sharma">
+              prakharsharma.wrk@gmail.com
+            </a>
+          </div>
+
+        </div>
+
+        <a class="resume-btn"
+           href="résumé.pdf"
+           download
+           aria-label="Download Prakhar's résumé PDF">
+          ↓ download résumé.pdf
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ═══════ SITE FOOTER ═══════ -->
+    <footer class="site-footer">
+      <p>
+        built with vanilla HTML/CSS/JS ·
+        <a href="https://github.com/Prakhar1808/literate-carnival"
+           target="_blank" rel="noopener">source on GitHub</a> ·
+        press <kbd>:</kbd> for command line · <kbd>Space</kbd> for keymaps
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- ═══════ NEOVIM STATUSLINE ═══════ -->
+  <div id="statusline" class="nvim-statusline" role="contentinfo" aria-label="Neovim statusline">
+    <div class="stat-left">
+      <span class="stat-mode">NORMAL</span>
+      <span class="stat-file">about.md</span>
+      <span class="stat-readonly">[+]</span>
+      <span class="stat-hint dim">press <kbd>:</kbd> cmdline · <kbd>Space</kbd> keymaps</span>
+    </div>
+    <div class="stat-right">
+      <button id="theme-toggle" class="theme-toggle stat-theme" title="Cycle theme">[paper]</button>
+      <span class="stat-enc">utf-8</span>
+      <span class="stat-pos" id="scroll-pos">Top</span>
+    </div>
+  </div>
+
+  <!-- ═══════ NEOVIM COMMANDLINE (:) ═══════ -->
+  <div id="nvim-cmdline-popup" class="hidden" role="dialog" aria-modal="true" aria-label="Neovim Command Line">
+    <div class="nvim-cmdline-inner">
+      <span class="nvim-cmdline-icon">:</span>
+      <input id="nvim-cmdline-input"
+             type="text"
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"
+             placeholder="terminal | tabn | tabp | colorscheme <name> | help"
+             aria-label="Command line input" />
+    </div>
+    <div class="nvim-cmdline-hint">Type <span class="accent">terminal</span> to open shell, <span class="accent">tabn</span>/<span class="accent">tabp</span> to switch tabs, <span class="accent">Esc</span> to close</div>
+  </div>
+
+  <!-- ═══════ WHICH-KEY POPUP (<Space>) ═══════ -->
+  <div id="which-key-popup" class="hidden" role="dialog" aria-modal="true" aria-label="Which Key Menu">
+  </div>
+
+  <!-- ═══════ NVIM NOTIFICATIONS ═══════ -->
+  <div id="nvim-notify-container" aria-live="polite"></div>
+
+  <!-- ═══════ TERMINAL OVERLAY ═══════ -->
+  <div id="cmd-overlay" class="hidden"
+       role="dialog"
+       aria-modal="true"
+       aria-label="Terminal emulator">
+    <div id="cmd-panel">
+      <div id="cmd-output" aria-live="polite" aria-label="Terminal output"></div>
+      <div class="cmd-input-row">
+        <span class="cmd-prompt" aria-hidden="true">$</span>
+        <input id="cmd-input"
+               type="text"
+               autocomplete="off"
+               autocorrect="off"
+               autocapitalize="off"
+               spellcheck="false"
+               placeholder="type 'help' for commands  |  Escape to close"
+               aria-label="Terminal input" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts (defer ordering: dither → themes → main → nvim) -->
+  <script src="assets/js/dither.js"></script>
+  <script src="assets/js/themes.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/nvim.js"></script>
+
+  <!-- ═══════ ASCII DRAGON SCROLLBAR ═══════ -->
+  <!-- Interactive scrollbar thumb & track; hidden on small screens via CSS -->
+  <div id="dragon-track" role="scrollbar" aria-label="Dragon Scrollbar" aria-controls="main" title="Dragon Scrollbar — Drag dragon or click pole to scroll">
+    <div class="dragon-pole"></div>
+    <pre id="dragon-ascii" title="Dragon Thumb (drag to scroll)"></pre>
+  </div>
+
+</body>
+</html>
