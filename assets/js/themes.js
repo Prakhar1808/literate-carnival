@@ -41,20 +41,27 @@
 
   // ── Theme engine ─────────────────────────────────
 
-  function applyTheme(name) {
+  function applyTheme(name, saveToStorage = false, notifyModified = true) {
     if (!THEMES.includes(name)) return false;
     currentTheme = name;
     document.documentElement.setAttribute('data-theme', name);
-    localStorage.setItem(STORAGE_KEY, name);
+    if (saveToStorage) {
+      try {
+        localStorage.setItem(STORAGE_KEY, name);
+      } catch (e) {}
+    }
     document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: name } }));
     if (themeBtn) themeBtn.textContent = `[${name}]`;
+    if (notifyModified && window.Nvim && typeof window.Nvim.markModified === 'function') {
+      window.Nvim.markModified();
+    }
     return true;
   }
 
   function cycleTheme() {
     const idx  = THEMES.indexOf(currentTheme);
     const next = THEMES[(idx + 1) % THEMES.length];
-    applyTheme(next);
+    applyTheme(next, false, true);
   }
 
   // ── Command palette ───────────────────────────────
@@ -275,8 +282,8 @@
 
     if (!overlay || !input) return;
 
-    // Apply saved/default theme
-    applyTheme(currentTheme);
+    // Apply saved/default theme (without marking modified)
+    applyTheme(currentTheme, false, false);
 
     // Theme cycle button
     if (themeBtn) {
@@ -304,10 +311,18 @@
       open: openPalette,
       close: closePalette,
       isOpen: () => overlay && !overlay.classList.contains('hidden'),
-      applyTheme: applyTheme,
+      applyTheme: (name, save = false) => applyTheme(name, save, true),
       cycleTheme: cycleTheme,
       getThemes: () => THEMES,
       getCurrentTheme: () => currentTheme,
+      saveThemeToStorage: () => {
+        try {
+          localStorage.setItem(STORAGE_KEY, currentTheme);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      },
       handleCommand: handleCommand,
     };
   }

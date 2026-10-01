@@ -944,6 +944,189 @@ main {
 }
 
 /* ════════════════════════════════════════════════
+   NVIM SPLIT WINDOWS (<Space>sv, <Space>sh, :vsp, :sp, <C-w>)
+   ════════════════════════════════════════════════ */
+#nvim-split-container {
+  display: none;
+  position: fixed;
+  top: 2.6rem;
+  left: 0;
+  right: 0;
+  bottom: 1.8rem;
+  z-index: 100;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+body.nvim-split-active #nvim-split-container {
+  display: flex !important;
+}
+
+body.nvim-split-active > main,
+body.nvim-split-active > .site-footer,
+body.nvim-split-active #dragon-track {
+  display: none !important;
+}
+
+body.nvim-split-active.split-vertical #nvim-split-container {
+  flex-direction: row;
+}
+
+body.nvim-split-active.split-horizontal #nvim-split-container {
+  flex-direction: column;
+}
+
+.nvim-split-pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+  min-width: 150px;
+  min-height: 120px;
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+
+.nvim-split-pane.active-pane {
+  box-shadow: inset 0 0 0 1px var(--accent-glow);
+}
+
+.nvim-split-divider {
+  background: var(--border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  user-select: none;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+body.split-vertical .nvim-split-divider {
+  width: 3px;
+  cursor: col-resize;
+}
+
+body.split-horizontal .nvim-split-divider {
+  height: 3px;
+  cursor: row-resize;
+}
+
+.nvim-split-divider:hover,
+.nvim-split-divider.dragging {
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.split-pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.72rem;
+  flex-shrink: 0;
+  user-select: none;
+  cursor: pointer;
+}
+
+.nvim-split-pane.active-pane .split-pane-header {
+  border-bottom-color: var(--accent);
+  background: var(--cmd-bg);
+}
+
+.split-pane-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.split-pane-mode {
+  font-weight: 700;
+  font-size: 0.65rem;
+  padding: 0.05rem 0.35rem;
+  background: var(--border);
+  color: var(--bg);
+  border-radius: 2px;
+}
+
+.nvim-split-pane.active-pane .split-pane-mode {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.split-pane-file {
+  font-weight: 700;
+  color: var(--fg-dim);
+}
+
+.nvim-split-pane.active-pane .split-pane-file {
+  color: var(--accent);
+}
+
+.split-pane-ro {
+  font-size: 0.65rem;
+  color: var(--fg-dim);
+}
+
+.split-pane-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.split-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--fg-dim);
+  cursor: pointer;
+  padding: 0.15rem 0.35rem;
+  font-size: 0.75rem;
+  font-family: inherit;
+  border-radius: 2px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.split-action-btn:hover {
+  color: var(--accent);
+  background: var(--bg-card);
+}
+
+.split-pane-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.5rem 1.25rem 3rem;
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbars inside split panes */
+.split-pane-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.split-pane-body::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+.split-pane-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+.split-pane-body::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Section styling adjustments inside split pane */
+.split-pane-body .section {
+  min-height: auto;
+  padding: 1.5rem 0;
+  max-width: 100%;
+}
+.split-pane-body .section-title::before {
+  margin-bottom: 1rem;
+}
+
+/* ════════════════════════════════════════════════
    PAPER THEME — NOTEBOOK LINES
    ════════════════════════════════════════════════ */
 
@@ -1169,4 +1352,199 @@ main {
     gap: 0.1rem;
   }
 }
+
+/* ════════════════════════════════════════════════
+   STATUSLINE MODIFIED INDICATOR ([+])
+   ════════════════════════════════════════════════ */
+.stat-readonly.stat-modified,
+.split-pane-ro.stat-modified {
+  color: var(--accent) !important;
+  font-weight: 700 !important;
+}
+
+/* ════════════════════════════════════════════════
+   TELESCOPE PICKER (telescope.nvim style)
+   ════════════════════════════════════════════════ */
+#telescope-modal {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2.5rem);
+  max-width: 760px;
+  max-height: 82vh;
+  background: var(--cmd-bg);
+  border: 1px solid var(--accent);
+  box-shadow: 0 16px 45px var(--shadow), 0 0 25px var(--accent-glow);
+  z-index: 650;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: telescope-in 0.16s ease-out;
+}
+
+@keyframes telescope-in {
+  from { opacity: 0; transform: translate(-50%, -46%); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.telescope-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 0.95rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.76rem;
+  user-select: none;
+}
+
+.telescope-title {
+  color: var(--accent);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  letter-spacing: 0.03em;
+}
+
+.telescope-count {
+  font-size: 0.7rem;
+}
+
+.telescope-prompt-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.95rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.telescope-prompt-icon {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.95rem;
+  user-select: none;
+}
+
+#telescope-prompt-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.88rem;
+  caret-color: var(--cursor-color);
+}
+
+#telescope-prompt-input::placeholder {
+  color: var(--fg-dim);
+  opacity: 0.6;
+}
+
+.telescope-results {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  max-height: 52vh;
+  padding: 0.35rem 0;
+  scroll-behavior: smooth;
+}
+
+.telescope-results::-webkit-scrollbar {
+  width: 5px;
+}
+.telescope-results::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.telescope-result-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  padding: 0.35rem 0.95rem;
+  cursor: pointer;
+  font-size: 0.78rem;
+  user-select: none;
+  transition: background 0.1s, color 0.1s;
+}
+
+.telescope-result-row:hover,
+.telescope-result-row.selected {
+  background: var(--bg-card);
+}
+
+.telescope-result-row.selected {
+  border-left: 2px solid var(--accent);
+  padding-left: calc(0.95rem - 2px);
+}
+
+.telescope-result-file {
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 5.8rem;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+
+.telescope-result-line {
+  color: var(--fg-dim);
+  font-size: 0.7rem;
+  min-width: 2.2rem;
+  flex-shrink: 0;
+}
+
+.telescope-result-text {
+  color: var(--fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.telescope-result-row.selected .telescope-result-text {
+  color: var(--fg-bright);
+}
+
+.telescope-match-highlight {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.telescope-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.telescope-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.95rem;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  font-size: 0.68rem;
+  color: var(--fg-dim);
+  user-select: none;
+}
+
+.search-target-flash {
+  outline: 2px solid var(--accent) !important;
+  box-shadow: 0 0 18px var(--accent-glow) !important;
+  animation: search-glow-pulse 2.2s ease-out forwards;
+}
+
+@keyframes search-glow-pulse {
+  0%   { background-color: var(--accent-glow); }
+  50%  { background-color: var(--accent-glow); }
+  100% { background-color: transparent; }
+}
+
 

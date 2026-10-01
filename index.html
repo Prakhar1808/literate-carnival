@@ -42,6 +42,9 @@
     <div class="nav-right-spacer"></div>
   </nav>
 
+  <!-- ═══════ NEOVIM SPLIT WINDOW CONTAINER ═══════ -->
+  <div id="nvim-split-container" class="hidden" role="region" aria-label="Neovim split windows"></div>
+
   <main>
 
     <!-- ═══════════════════════════════════════════
@@ -517,7 +520,7 @@
     <div class="stat-left">
       <span class="stat-mode">NORMAL</span>
       <span class="stat-file">about.md</span>
-      <span class="stat-readonly">[+]</span>
+      <span class="stat-readonly">[RO]</span>
       <span class="stat-hint dim">press <kbd>:</kbd> cmdline · <kbd>Space</kbd> keymaps</span>
     </div>
     <div class="stat-right">
@@ -545,6 +548,23 @@
 
   <!-- ═══════ WHICH-KEY POPUP (<Space>) ═══════ -->
   <div id="which-key-popup" class="hidden" role="dialog" aria-modal="true" aria-label="Which Key Menu">
+  </div>
+
+  <!-- ═══════ TELESCOPE POPUP (telescope.nvim) ═══════ -->
+  <div id="telescope-modal" class="hidden" role="dialog" aria-modal="true" aria-label="Telescope Picker">
+    <div class="telescope-header">
+      <div class="telescope-title"><span class="telescope-icon">󰍉</span> <span id="telescope-title-text">Telescope Grep</span></div>
+      <span class="telescope-count dim" id="telescope-count">0 matches</span>
+    </div>
+    <div class="telescope-prompt-bar">
+      <span class="telescope-prompt-icon">&gt;</span>
+      <input type="text" id="telescope-prompt-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type query to grep across buffers..." aria-label="Telescope search prompt" />
+    </div>
+    <div class="telescope-results" id="telescope-results" role="listbox"></div>
+    <div class="telescope-footer">
+      <span><kbd>↑</kbd>/<kbd>↓</kbd> or <kbd>C-j</kbd>/<kbd>C-k</kbd> select · <kbd>Enter</kbd> jump · <kbd>Esc</kbd> close</span>
+      <span class="dim" id="telescope-mode-tag">live grep</span>
+    </div>
   </div>
 
   <!-- ═══════ NVIM NOTIFICATIONS ═══════ -->
