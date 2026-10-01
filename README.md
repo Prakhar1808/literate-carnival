@@ -1,11 +1,10 @@
-# Prakhar Sharma — Portfolio
+# my Portfolio
 
 Personal portfolio site for [satyanveshi.xyz](https://satyanveshi.xyz).
 
 Built with pure **HTML + CSS + vanilla JS** — no build step, no dependencies, GitHub Pages ready.
-
----
 for anyone who to wants know more about this and maybe even make one for themselves
+
 ## Stack
 
 | Layer | Tech |
@@ -16,7 +15,6 @@ for anyone who to wants know more about this and maybe even make one for themsel
 | Fonts | JetBrains Mono via Google Fonts |
 | Hosting | GitHub Pages + custom domain (`satyanveshi.xyz`) |
 
----
 
 ## Project Structure
 
@@ -45,7 +43,6 @@ for anyone who to wants know more about this and maybe even make one for themsel
 └── README.md
 ```
 
----
 
 ## Colour Themes
 
@@ -77,42 +74,48 @@ Press <kbd>Space</kbd> anywhere on the page to open the **Which-Key** popup:
 | `<Space>tl` or `<Space>t>` | Move active tab **right** in order | `:tabmove +1` (Live section swap) |
 | `<Space>to` | Open new tab | `:tabnew` (Simulated buffer) |
 | `<Space>tx` | Close tab | `:tabclose` |
-| `<Space>tmr` | Reset tab order | Reset layout to original defaults |
+| `<Space>tmr` | Reset tab order | Reset layout to original defaults (mark `[+]`) |
+| `<Space>sv` | Split window vertically | Real `:vsp` side-by-side split |
+| `<Space>sh` | Split window horizontally | Real `:sp` top/bottom split |
+| `<Space>sw` | Switch focus between splits | Focus other window (`<C-w>w` / `gww`) |
+| `<Space>se` | Equalize split sizes | Equal 50%/50% panes (`<C-w>=` / `gw=`) |
+| `<Space>sx` | Close active split window | Closes active pane (`:close` / `<C-w>c` / `gwc`) |
+| `<Space>so` | Only keep active split | Maximizes active pane (`:only` / `<C-w>o` / `gwo`) |
+| `<Space>fw` | Save / write buffer (:w) | **Persist tab layout & theme to localStorage** (clears `[+]`) |
+| `<Space>ff` | Format buffer with LSP | `vim.lsp.buf.format` |
 | `<Space>fp` | Copy current file path / URL | `vim.fn.setreg('+', filePath)` |
-| `<Space>f` | Format buffer with LSP | `vim.lsp.buf.format` |
+| `<Space>pw` | Telescope grep word under cursor | **Real live grep** for selected/hovered word across all buffers |
+| `<Space>pg` | Telescope live grep | Open interactive live grep finder modal across buffers |
+| `<Space>pf` | Telescope find files | Open interactive fuzzy file finder modal (:find) |
+| `<Space>pr` | Telescope recent files | Recent files / buffers |
+| `<Space>pn` | Telescope notifications | Notification history |
+| `<Space>pt` | Telescope colorschemes | Cycle colorscheme |
+| `<Space>Tn` / `Tp` / `Tg` / `Ta` / `Ts` | Direct Theme Picker | Switch theme (`paper`, `green`, `amber`, `synthwave`) |
 | `<Space>r` | Replace word globally | `:%s/<cword>/<cword>/gI` |
 | `<Space>e` | Open MiniFiles explorer | `MiniFiles.open()` |
-| `<Space>ths` | Telescope color themes | Switch color theme |
-| `<Space>pr` | Telescope recent files | `Telescope oldfiles` |
-| `<Space>pn` | Telescope notifications | `Telescope notify` |
-| `<Space>pWs` | Telescope connected words | `builtin.grep_string("<cWORD>")` |
 | `<Space>cn` | Clear all notifications | `require('notify').dismiss()` |
-| `<Space>C` | Clear search highlights | `:nohl` |
-| `<Space>sv` | Split window vertically | `<C-w>v` |
-| `<Space>sh` | Split window horizontally | `<C-w>s` |
-| `<Space>se` | Equalize split sizes | `<C-w>=` |
-| `<Space>sx` | Close split window | `<cmd>close<CR>` |
+| `<Space>ch` | Clear search highlights | Clear `.search-target-flash` (`:nohl`) |
 | `<Space>:` | Open Neovim commandline | `: ` commandline prompt |
 | `<Esc>` | Dismiss Which-Key | Close popup |
 
----
 
 ### Global Keyboard Shortcuts
 
 | Shortcut | Action | Notes |
 |---|---|---|
-| <kbd>:</kbd> | Open Neovim commandline | Ex-commands (`:terminal`, `:tabm`, etc.) |
-| <kbd>Space</kbd> | Open Which-Key menu | Interactive leader keymap viewer |
+| <kbd>:</kbd> | Open Neovim commandline | Ex-commands (`:w`, `:vsp`, `:sp`, `:grep`, `:close`, `:only`, etc.) |
+| <kbd>Space</kbd> | Open Which-Key menu | Interactive leader keymap viewer (extended timeout + hover pause) |
+| <kbd>Ctrl</kbd>+<kbd>w</kbd> or <kbd>gw</kbd> | Window split prefix | Follow with <kbd>v</kbd>, <kbd>s</kbd>, <kbd>w</kbd>, <kbd>c</kbd>, <kbd>=</kbd>, <kbd>o</kbd>, <kbd>h</kbd>, <kbd>l</kbd> |
 | <kbd>Shift</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Move active tab & section left / right | Single modifier, works on all platforms |
 | <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Move active tab & section left / right | Classic IDE shortcut |
 | <kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Move active tab & section left / right | Standard tab mover |
 | <kbd>&lt;</kbd> / <kbd>&gt;</kbd> | Move active tab & section left / right | Vim visual shift normal mode |
 | <kbd>H</kbd> / <kbd>L</kbd> | Move active tab & section left / right | Vim left/right normal mode |
 | <kbd>[</kbd> / <kbd>]</kbd> | Move active tab & section left / right | Buffer navigation normal mode |
+| <kbd>g</kbd><kbd>t</kbd> / <kbd>g</kbd><kbd>T</kbd> | Jump to next / previous buffer | Standard Vim tab jump |
 | <kbd>Shift</kbd> + <kbd>PageUp</kbd> / <kbd>PageDown</kbd> | Move active tab & section left / right | Page-step tab moving |
-| <kbd>Esc</kbd> | Dismiss popup or Which-Key | Returns to normal mode |
+| <kbd>Esc</kbd> | Dismiss popup, Which-Key or cmdline | Returns to normal mode |
 
----
 
 ### Command Line (`:`)
 
@@ -120,19 +123,27 @@ Press <kbd>:</kbd> to open the Neovim commandline. Supports <kbd>Tab</kbd> auto-
 
 | Command | Action |
 |---|---|
+| `:w` or `:write` | **Write buffer to localStorage** (persists tab order & theme, turns `[+]` into `[RO]`) |
+| `:wq` or `:x` | Write buffer and close terminal / split |
+| `:grep <query>` or `:live_grep` | Open Telescope live grep modal across all buffers |
+| `:find <file>` or `:files` | Open Telescope find files modal |
+| `:nohl` or `:nohlsearch` | Clear search highlight glow from elements |
+| `:vsplit` or `:vsp [tab]` | Open vertical split window side-by-side |
+| `:split` or `:sp [tab]` | Open horizontal split window top/bottom |
+| `:close` or `:clo` | Close active split window (or `:q` in split) |
+| `:only` or `:on` | Maximize active split window, closing others |
 | `:terminal` or `:term` | Open the interactive terminal shell |
-| `:tabn` / `:tabnext` | Jump to the next tab |
+| `:tabn` / `:tabnext` | Jump to the next tab (in split mode: changes active pane buffer) |
 | `:tabp` / `:tabprev` | Jump to the previous tab |
 | `:tabmove +1` / `:tabm +1` / `:tabm >` | Move current tab & section to the right |
 | `:tabmove -1` / `:tabm -1` / `:tabm <` | Move current tab & section to the left |
 | `:tabmove <1-5>` / `:tabm <1-5>` | Move current tab directly to 1-based index |
-| `:tabreset` | Reset tabs & page layout to default |
+| `:tabreset` | Reset tabs & page layout to default (type `:w` to persist) |
 | `:colorscheme <theme>` or `:theme <name>` | Switch theme (`green`, `amber`, `synthwave`, `paper`) |
 | `:w` | Write buffer simulation |
-| `:q` / `:quit` / `:exit` | Close terminal or dismiss commandline |
+| `:q` / `:quit` / `:exit` | Close split window, terminal, or dismiss commandline |
 | `:help` / `:h` | Open terminal with help commands |
 
----
 
 ### Tab Reordering (Drag & Drop)
 
@@ -140,7 +151,6 @@ Press <kbd>:</kbd> to open the Neovim commandline. Supports <kbd>Tab</kbd> auto-
 - Dropping the tab reorders the tabline **and physically reorders the `<section>` elements in the DOM on screen**.
 - Custom tab orders persist automatically in `localStorage`.
 
----
 
 ### Dragon Scrollbar
 
@@ -149,7 +159,6 @@ Press <kbd>:</kbd> to open the Neovim commandline. Supports <kbd>Tab</kbd> auto-
 - Click anywhere on the vertical guide pole track to jump straight to that scroll position.
 - Flaps wings with rapid energy (90ms) while scrolling or dragging, settling into a gentle glide (320ms) when idle.
 
----
 
 ## Terminal Shell
 
@@ -202,7 +211,6 @@ You can fine-tune dithering in `assets/css/themes.css` under each `[data-theme="
 | `--dither-contrast` | Contrast multiplier (`>1.0` punchier, `<1.0` softer) | `1.0` |
 | `--dither-brightness` | Brightness offset (`-100` to `100`) | `0` |
 
----
 
 ## Adding Projects
 
@@ -229,7 +237,6 @@ Edit the `.project-card` blocks in `index.html`. Each card has:
    ```
 5. Add a `CNAME` record: `www → Prakhar1808.github.io`
 
----
 
 ## Running Locally
 
