@@ -384,12 +384,30 @@
 
   // ── Drag & Drop Tabs ────────────────────────────────
 
+  function reorderTabs(sourceId, targetId, insertAfter) {
+    if (!sourceId || !targetId || sourceId === targetId) return;
+    const currentOrder = [...tabs];
+    const sourceIdx = currentOrder.findIndex(t => t.id === sourceId);
+    if (sourceIdx < 0) return;
+
+    const [movedTab] = currentOrder.splice(sourceIdx, 1);
+    let targetIdx = currentOrder.findIndex(t => t.id === targetId);
+    if (targetIdx < 0) return;
+
+    if (insertAfter) {
+      targetIdx += 1;
+    }
+    currentOrder.splice(targetIdx, 0, movedTab);
+    applyTabOrder(currentOrder, `Moved "${movedTab.file}" to position ${targetIdx + 1} (type :w to save)`, false);
+  }
+
   function initDragAndDrop() {
     const container = document.querySelector('.nav-links');
     if (!container) return;
 
     let draggedTabId = null;
 
+    // Desktop HTML5 Drag & Drop
     container.addEventListener('dragstart', (e) => {
       const link = e.target.closest('.nav-link');
       if (!link) return;
@@ -438,24 +456,11 @@
       if (!targetLink || !draggedTabId) return;
 
       const targetId = targetLink.getAttribute('href').replace('#', '');
-      if (draggedTabId === targetId) return;
-
       const rect = targetLink.getBoundingClientRect();
       const midX = rect.left + rect.width / 2;
       const insertAfter = e.clientX >= midX;
 
-      const currentOrder = [...tabs];
-      const sourceIdx = currentOrder.findIndex(t => t.id === draggedTabId);
-      if (sourceIdx < 0) return;
-
-      const [movedTab] = currentOrder.splice(sourceIdx, 1);
-      let targetIdx = currentOrder.findIndex(t => t.id === targetId);
-      if (insertAfter) {
-        targetIdx += 1;
-      }
-      currentOrder.splice(targetIdx, 0, movedTab);
-
-      applyTabOrder(currentOrder, `Moved "${movedTab.file}" to position ${targetIdx + 1} (type :w to save)`, false);
+      reorderTabs(draggedTabId, targetId, insertAfter);
       draggedTabId = null;
     });
 
@@ -465,6 +470,113 @@
       });
       draggedTabId = null;
     });
+
+    // Touch Drag & Drop for Mobile
+    let touchTimer = null;
+    let touchStartLink = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isTouchDragging = false;
+    let currentDropTarget = null;
+    let currentInsertAfter = false;
+    let justDropped = false;
+
+    function clearTouchHighlights() {
+      container.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.remove('is-dragging', 'drag-target-left', 'drag-target-right');
+      });
+    }
+
+    container.addEventListener('touchstart', (e) => {
+      if (e.touches.length !== 1) return;
+      const link = e.target.closest('.nav-link');
+      if (!link) return;
+
+      touchStartLink = link;
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      isTouchDragging = false;
+      currentDropTarget = null;
+
+      clearTimeout(touchTimer);
+      touchTimer = setTimeout(() => {
+        isTouchDragging = true;
+        draggedTabId = link.getAttribute('href').replace('#', '');
+        link.classList.add('is-dragging');
+        if (navigator.vibrate) {
+          try { navigator.vibrate(40); } catch (_) {}
+        }
+      }, 250);
+    }, { passive: true });
+
+    container.addEventListener('touchmove', (e) => {
+      if (!touchStartLink) return;
+      const touch = e.touches[0];
+      const dx = Math.abs(touch.clientX - touchStartX);
+      const dy = Math.abs(touch.clientY - touchStartY);
+
+      if (!isTouchDragging) {
+        if (dx > 8 || dy > 8) {
+          clearTimeout(touchTimer);
+          touchStartLink = null;
+        }
+        return;
+      }
+
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
+      const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+      const targetLink = elem ? elem.closest('.nav-link') : null;
+
+      container.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.remove('drag-target-left', 'drag-target-right');
+      });
+
+      if (targetLink && targetLink !== touchStartLink) {
+        currentDropTarget = targetLink;
+        const rect = targetLink.getBoundingClientRect();
+        const midX = rect.left + rect.width / 2;
+        currentInsertAfter = touch.clientX >= midX;
+        if (currentInsertAfter) {
+          targetLink.classList.add('drag-target-right');
+        } else {
+          targetLink.classList.add('drag-target-left');
+        }
+      } else {
+        currentDropTarget = null;
+      }
+    }, { passive: false });
+
+    const handleTouchEnd = () => {
+      clearTimeout(touchTimer);
+      if (isTouchDragging) {
+        justDropped = true;
+        setTimeout(() => { justDropped = false; }, 300);
+        if (touchStartLink && currentDropTarget && draggedTabId) {
+          const targetId = currentDropTarget.getAttribute('href').replace('#', '');
+          reorderTabs(draggedTabId, targetId, currentInsertAfter);
+        }
+      }
+      clearTouchHighlights();
+      touchStartLink = null;
+      isTouchDragging = false;
+      draggedTabId = null;
+      currentDropTarget = null;
+    };
+
+    container.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener('touchcancel', handleTouchEnd);
+
+    // Suppress accidental navigation right after drop
+    container.addEventListener('click', (e) => {
+      if (justDropped) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
   }
 
   // ── Tab Navigation ──────────────────────────────────
@@ -497,7 +609,11 @@
       targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${target.id}`);
+        const isActive = link.getAttribute('href') === `#${target.id}`;
+        link.classList.toggle('active', isActive);
+        if (isActive && link.scrollIntoView) {
+          link.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+        }
       });
 
       const statFile = document.querySelector('.stat-file');
@@ -1430,12 +1546,21 @@
     whichKeyPopup.innerHTML = `
       <div class="which-key-header">
         <span class="which-key-title">${escapeHTML(title)}</span>
+        <button type="button" class="which-key-close-btn" aria-label="Close Which-Key">Esc &times;</button>
         <span class="which-key-hint dim">press key or [Esc] to cancel</span>
       </div>
       <div class="which-key-grid">
         ${itemsHtml}
       </div>
     `;
+
+    const closeBtn = whichKeyPopup.querySelector('.which-key-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeWhichKey();
+      });
+    }
 
     whichKeyPopup.querySelectorAll('.which-key-item').forEach(el => {
       el.addEventListener('click', (e) => {
@@ -1776,6 +1901,39 @@
         if (e.key === 'Enter') {
           e.preventDefault();
           handleCmdlineSubmit(cmdlineInput.value);
+        }
+      });
+    }
+
+    // Mobile touch buttons & statusline interactions
+    const mobileSpaceBtn = document.getElementById('mobile-space-btn');
+    if (mobileSpaceBtn) {
+      mobileSpaceBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (whichKeyActive) {
+          closeWhichKey();
+        } else {
+          openWhichKey();
+        }
+      });
+    }
+
+    const mobileCmdBtn = document.getElementById('mobile-cmd-btn');
+    if (mobileCmdBtn) {
+      mobileCmdBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openCmdline(':');
+      });
+    }
+
+    const statModeBadge = document.getElementById('stat-mode-badge');
+    if (statModeBadge) {
+      statModeBadge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (whichKeyActive) {
+          closeWhichKey();
+        } else {
+          openWhichKey();
         }
       });
     }

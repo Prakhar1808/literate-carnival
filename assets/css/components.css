@@ -17,16 +17,27 @@
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border);
   transition: background 0.3s;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+#nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-links {
   display: flex;
   flex: 0 0 auto;
+  align-items: stretch;
+  height: 100%;
 }
 
 .nav-right-spacer {
   flex: 1;
   background: var(--bg-surface);
+  min-width: 0.5rem;
 }
 
 .nav-link {
@@ -641,13 +652,18 @@
   height: 100%;
 }
 
-.stat-left span,
-.stat-right span,
+.stat-left > span,
+.stat-right > span,
 .stat-theme {
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
   height: 100%;
+}
+
+.stat-hint kbd {
+  margin: 0 0.25rem;
+  font-family: inherit;
 }
 
 .stat-mode {
@@ -665,6 +681,72 @@
 .stat-enc,
 .stat-pos {
   color: var(--fg-dim);
+}
+
+.stat-space-btn,
+.stat-cmd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.12rem 0.45rem;
+  margin: 0 0.35rem;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+.stat-space-btn:hover,
+.stat-cmd-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.stat-space-btn:active,
+.stat-cmd-btn:active {
+  transform: scale(0.92);
+}
+
+.stat-key-kbd {
+  font-weight: 900;
+  font-size: 0.78rem;
+  font-family: inherit;
+}
+
+.stat-mode {
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+.stat-mode:hover {
+  opacity: 0.88;
+}
+
+.which-key-close-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--fg-dim);
+  font-family: inherit;
+  font-size: 0.68rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.which-key-close-btn:hover,
+.which-key-close-btn:active {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .stat-theme {
@@ -1289,33 +1371,84 @@ body.split-horizontal .nvim-split-divider {
    RESPONSIVE
    ════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  /* Remove vertical red margin line completely on mobile/tablets so it never cuts through text */
+  [data-theme="paper"] body::before {
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent calc(var(--rule-height) - 1px),
+        var(--rule-color) calc(var(--rule-height) - 1px),
+        var(--rule-color) var(--rule-height)
+      );
+    background-size: 100% var(--rule-height);
   }
 
-  #dither-canvas {
-    max-width: 180px;
-    margin: 0 auto;
-    display: block;
+  /* Nav tabline: allow horizontal scroll & no gap so all tabs are accessible */
+  #nav {
+    height: 2.5rem;
   }
-
-  .hero-name { font-size: 2.5rem; }
-
-  .skill-row {
-    grid-template-columns: 8rem 1fr 2.5rem;
-    gap: 0.5rem;
-  }
-
-  .skill-name { font-size: 0.72rem; }
 
   .nav-links {
-    gap: 1rem;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 0 0.75rem;
+    font-size: 0.72rem;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    touch-action: pan-x;
   }
 
   .nav-prompt {
     display: none;
   }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  #dither-canvas {
+    max-width: 190px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .hero-name {
+    font-size: 2.3rem;
+    line-height: 1.05;
+    margin: 0.5rem 0 0.8rem;
+    word-break: break-word;
+  }
+
+  .hero-tagline {
+    font-size: 0.88rem;
+    margin-bottom: 1.25rem;
+    word-break: break-word;
+  }
+
+  .hero-meta {
+    gap: 0.45rem;
+    font-size: 0.8rem;
+  }
+
+  .skill-row {
+    grid-template-columns: 7.5rem 1fr 2.5rem;
+    gap: 0.5rem;
+  }
+
+  .skill-name { font-size: 0.72rem; }
 
   .projects-grid,
   .hobbies-grid {
@@ -1326,10 +1459,23 @@ body.split-horizontal .nvim-split-divider {
     padding: 0.75rem 1rem 1rem;
   }
 
-  /* Hide dragon on small screens — no room */
+  /* Hide dragon scrollbar on small screens — no room */
   #dragon-track {
     display: none;
   }
+
+  /* Statusline touch bar on mobile */
+  .nvim-statusline {
+    height: 2.2rem;
+    padding: 0 0.25rem;
+  }
+
+  .stat-left > span,
+  .stat-right > span,
+  .stat-theme {
+    padding: 0 0.4rem;
+  }
+
   .stat-hint {
     display: none !important;
   }
@@ -1340,16 +1486,85 @@ body.split-horizontal .nvim-split-divider {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  /* Which-key mobile touch drawer */
+  #which-key-popup {
+    bottom: 2.3rem;
+    width: calc(100% - 1rem);
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 0.65rem 0.75rem 0.85rem;
+  }
+
+  .which-key-grid {
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 0.35rem 0.5rem;
+  }
+
+  .which-key-item {
+    padding: 0.35rem 0.45rem;
+  }
 }
 
 @media (max-width: 480px) {
+  .section {
+    padding: 3.5rem 1rem;
+  }
+
+  .nav-link {
+    padding: 0 0.55rem;
+    font-size: 0.68rem;
+    gap: 0.25rem;
+  }
+
+  .hero-name {
+    font-size: 1.95rem;
+  }
+
+  .hero-meta {
+    font-size: 0.78rem;
+    gap: 0.4rem;
+  }
+
+  .hero-meta p {
+    display: grid;
+    grid-template-columns: 3.8rem 1fr;
+    gap: 0.4rem;
+    align-items: baseline;
+  }
+
   .hero-meta .dim {
-    min-width: 4.5rem;
+    min-width: 0;
+  }
+
+  .skill-row {
+    grid-template-columns: 6.2rem 1fr 2.2rem;
+    gap: 0.35rem;
+  }
+
+  .skill-pct {
+    font-size: 0.7rem;
   }
 
   .contact-row {
     grid-template-columns: 1fr;
     gap: 0.1rem;
+  }
+
+  /* Prevent statusline overflow / vertical wrapping */
+  .stat-enc {
+    display: none !important;
+  }
+
+  .stat-file {
+    max-width: 65px;
+  }
+
+  .stat-space-btn,
+  .stat-cmd-btn {
+    padding: 0.1rem 0.35rem;
+    font-size: 0.65rem;
+    margin: 0 0.15rem;
   }
 }
 

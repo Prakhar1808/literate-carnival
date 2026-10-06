@@ -78,6 +78,7 @@
               const isActive = l.getAttribute('href') === `#${id}`;
               l.classList.toggle('active', isActive);
               if (isActive) {
+                l.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
                 const statFile = document.querySelector('.stat-file');
                 if (statFile) {
                   const parts = l.textContent.trim().split(/\s+/);
