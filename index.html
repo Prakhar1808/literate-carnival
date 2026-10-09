@@ -518,9 +518,15 @@
   <!-- ═══════ NEOVIM STATUSLINE ═══════ -->
   <div id="statusline" class="nvim-statusline" role="contentinfo" aria-label="Neovim statusline">
     <div class="stat-left">
-      <span class="stat-mode">NORMAL</span>
+      <span class="stat-mode" id="stat-mode-badge" role="button" tabindex="0" title="Tap to open Which-Key (<Space>)">NORMAL</span>
       <span class="stat-file">about.md</span>
       <span class="stat-readonly">[RO]</span>
+      <button id="mobile-space-btn" class="stat-space-btn" type="button" title="Leader Key: Tap to open Which-Key keymaps" aria-label="Open Which-Key keymaps">
+        <kbd class="stat-key-kbd">␣</kbd> <span class="space-label">Space</span>
+      </button>
+      <button id="mobile-cmd-btn" class="stat-cmd-btn" type="button" title="Neovim Commandline (:)" aria-label="Open command line">
+        <kbd class="stat-key-kbd">:</kbd>
+      </button>
       <span class="stat-hint dim">press <kbd>:</kbd> cmdline · <kbd>Space</kbd> keymaps</span>
     </div>
     <div class="stat-right">
