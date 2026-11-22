@@ -264,7 +264,7 @@
   grid-template-columns: 11rem 1fr 3.5rem;
   align-items: center;
   gap: 1rem;
-  font-size: 0.8rem;
+  font-size: max-content;
 }
 
 .skill-name {
